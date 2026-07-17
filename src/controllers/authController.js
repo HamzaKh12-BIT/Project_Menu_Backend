@@ -53,6 +53,11 @@ const login = async (req,res)=>{
     });
 
     res.json({
+        user:{
+            id:user.id,
+            username:user.username,
+            role:user.role.name
+        },
         message:"Login success"
     });
 };

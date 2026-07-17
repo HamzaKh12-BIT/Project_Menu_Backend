@@ -1,17 +1,23 @@
 const express = require("express");
-
 const router = express.Router();
 
 const {
-    getProducts,
-    getProductsByCategory
+  getProducts,
+  getProductsByCategory,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 } = require("../controllers/productController");
 
-router.get("/", getProducts);
+const protect = require("../middleware/authMiddleware");
 
-router.get(
-    "/category/:categoryId",
-    getProductsByCategory
-);
+// Public
+router.get("/", getProducts);
+router.get("/category/:categoryId", getProductsByCategory);
+
+// Protected
+router.post("/", protect, createProduct);
+router.put("/:id", protect, updateProduct);
+router.delete("/:id", protect, deleteProduct);
 
 module.exports = router;
